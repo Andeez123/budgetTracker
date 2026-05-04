@@ -2,6 +2,9 @@ package com.andrew.budgetTracker.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "Users")
 public class User {
@@ -12,14 +15,19 @@ public class User {
     private String lastName;
     private String phoneNumber;
     private String emailAddress;
+    private double accAmt;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Transaction> transactions = new ArrayList<>();
 
     public User(){}
 
-    public User(String fName, String lName, String pNum, String email){
+    public User(String fName, String lName, String pNum, String email, double amt){
         this.firstName = fName;
         this.lastName = lName;
         this.phoneNumber = pNum;
         this.emailAddress = email;
+        this.accAmt = amt;
     }
 
     public long getUserID() {
@@ -57,4 +65,9 @@ public class User {
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
+
+    public void addTransaction(Transaction transaction){
+        this.transactions.add(transaction);
+    }
+
 }
