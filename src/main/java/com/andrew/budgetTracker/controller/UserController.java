@@ -1,6 +1,7 @@
 package com.andrew.budgetTracker.controller;
 
 import com.andrew.budgetTracker.Service.UserService;
+import com.andrew.budgetTracker.model.Transaction;
 import com.andrew.budgetTracker.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

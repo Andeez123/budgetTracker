@@ -1,6 +1,7 @@
 package com.andrew.budgetTracker.Service;
 
 import com.andrew.budgetTracker.Exceptions.UserNotFoundException;
+import com.andrew.budgetTracker.model.Transaction;
 import com.andrew.budgetTracker.model.User;
 import com.andrew.budgetTracker.repository.userRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,8 @@ public class UserService {
         user.setLastName(newUser.getLastName());
         user.setPhoneNumber(newUser.getPhoneNumber());
         user.setEmailAddress(newUser.getEmailAddress());
+        user.setPassword(newUser.getPassword());
         return userRepo.save(user);
     }
+
 }

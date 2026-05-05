@@ -15,6 +15,7 @@ public class User {
     private String lastName;
     private String phoneNumber;
     private String emailAddress;
+    private String password;
     private double accAmt;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -22,11 +23,12 @@ public class User {
 
     public User(){}
 
-    public User(String fName, String lName, String pNum, String email, double amt){
+    public User(String fName, String lName, String pNum, String email, String password,double amt){
         this.firstName = fName;
         this.lastName = lName;
         this.phoneNumber = pNum;
         this.emailAddress = email;
+        this.password = password;
         this.accAmt = amt;
     }
 
@@ -68,6 +70,21 @@ public class User {
 
     public void addTransaction(Transaction transaction){
         this.transactions.add(transaction);
+        transaction.setUser(this);
+    }
+    public void setPassword(String password){
+        this.password = password;
     }
 
+    public String getPassword(){
+        return this.password;
+    }
+
+    public double getAccAmt() {
+        return accAmt;
+    }
+
+    public void setAccAmt(double newAmt){
+        this.accAmt = newAmt;
+    }
 }
