@@ -16,14 +16,14 @@ public class User {
     private String phoneNumber;
     private String emailAddress;
     private String password;
-    private double accAmt;
+    private Double accAmt;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Transaction> transactions = new ArrayList<>();
 
     public User(){}
 
-    public User(String fName, String lName, String pNum, String email, String password,double amt){
+    public User(String fName, String lName, String pNum, String email, String password,Double amt){
         this.firstName = fName;
         this.lastName = lName;
         this.phoneNumber = pNum;
@@ -80,7 +80,7 @@ public class User {
         return this.password;
     }
 
-    public double getAccAmt() {
+    public Double getAccAmt() {
         return accAmt;
     }
 
