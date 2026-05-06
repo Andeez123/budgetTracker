@@ -1,7 +1,9 @@
 package com.andrew.budgetTracker.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +25,9 @@ public class Transaction {
     private Category category;
 
     private String categoryName;
+
+    @CreationTimestamp
+    private Instant createdOn;
 
     public enum TransactionType {
         income, expense
@@ -62,4 +67,16 @@ public class Transaction {
         return this.categoryName;
     }
 
+    public Instant getCreatedOn(){return this.createdOn;}
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "TransactionID=" + TransactionID +
+                ", amount=" + amount +
+                ", transactionType=" + transactionType +
+                ", user=" + user +
+                ", categoryName='" + categoryName + '\'' +
+                '}';
+    }
 }

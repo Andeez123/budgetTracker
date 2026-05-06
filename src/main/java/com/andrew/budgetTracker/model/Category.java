@@ -25,4 +25,6 @@ public class Category {
 
     public String getName(){return this.name;}
 
+    public long getCategoryID(){return this.categoryID;}
+
 }

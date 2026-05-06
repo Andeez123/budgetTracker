@@ -48,4 +48,8 @@ public class TransactionService {
 
         return transactionRepo.save(transaction);
     }
+
+    public void deleteTransaction(long transactionID){
+        transactionRepo.deleteById(transactionID);
+    }
 }

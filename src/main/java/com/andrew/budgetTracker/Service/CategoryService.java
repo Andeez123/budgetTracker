@@ -5,6 +5,8 @@ import com.andrew.budgetTracker.repository.CategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryService {
 
@@ -27,5 +29,17 @@ public class CategoryService {
             categoryRepo.save(category);
             return category;
         }
+    }
+
+    public List<Category> findAllCategory(){
+        return categoryRepo.findAll();
+    }
+
+    public void deleteCategory(long categoryId){
+        categoryRepo.deleteById(categoryId);
+    }
+
+    public Category getCategory(long categoryId){
+        return categoryRepo.findById(categoryId).orElseThrow(() -> new RuntimeException());
     }
 }

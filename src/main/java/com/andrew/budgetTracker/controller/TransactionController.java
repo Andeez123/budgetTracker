@@ -32,4 +32,11 @@ public class TransactionController {
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("").buildAndExpand(savedTransaction.getTransactionID()).toUri();
         return ResponseEntity.created(location).body(savedTransaction);
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteTransactionByID(@PathVariable("id") long transactionID){
+        Transaction transaction = transactionService.getTransactionById(transactionID);
+        transactionService.deleteTransaction(transactionID);
+        return ResponseEntity.ok("Deleted: " + transaction.toString());
+    }
 }

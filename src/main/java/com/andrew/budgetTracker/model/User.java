@@ -1,9 +1,11 @@
 package com.andrew.budgetTracker.model;
 
 import jakarta.persistence.*;
+import org.springframework.cglib.core.Local;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.*;
 
 @Entity
 @Table(name = "Users")
@@ -17,6 +19,7 @@ public class User {
     private String emailAddress;
     private String password;
     private Double accAmt;
+    private LocalDate createdDate;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Transaction> transactions = new ArrayList<>();
@@ -30,6 +33,7 @@ public class User {
         this.emailAddress = email;
         this.password = password;
         this.accAmt = amt;
+        this.createdDate = LocalDate.now();
     }
 
     public long getUserID() {
@@ -87,4 +91,6 @@ public class User {
     public void setAccAmt(double newAmt){
         this.accAmt = newAmt;
     }
+
+    public LocalDate getCreatedDate(){return this.createdDate;}
 }
