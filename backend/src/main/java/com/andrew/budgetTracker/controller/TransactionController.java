@@ -2,6 +2,7 @@ package com.andrew.budgetTracker.controller;
 
 import com.andrew.budgetTracker.Service.TransactionService;
 import com.andrew.budgetTracker.model.Transaction;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ public class TransactionController {
     @Autowired
     TransactionService transactionService;
 
+    @Operation(summary = "Return transaction by ID")
     @GetMapping("{id}")
     public Transaction getTransactionById(@PathVariable("id") long userID){
         return transactionService.getTransactionById(userID);
