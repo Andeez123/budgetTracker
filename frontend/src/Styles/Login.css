@@ -1,4 +1,8 @@
 .container {
     max-height: 200px;
-    padding: 50px;
+    padding-bottom: 80px;
+}
+
+.register {
+    padding: 80px;
 }
