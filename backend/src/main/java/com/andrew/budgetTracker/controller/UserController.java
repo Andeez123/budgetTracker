@@ -1,10 +1,12 @@
 package com.andrew.budgetTracker.controller;
 
 import com.andrew.budgetTracker.Service.UserService;
+import com.andrew.budgetTracker.model.LoginDTO;
 import com.andrew.budgetTracker.model.Transaction;
 import com.andrew.budgetTracker.model.User;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -52,5 +54,17 @@ public class UserController {
     public ResponseEntity<String> updateUser(@PathVariable("id") long userID, @RequestBody User newUser){
         User savedUser = userService.updateUser(userID, newUser);
         return ResponseEntity.ok("User" + userID + " updated");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginDTO userRequest){
+        User user = userService.getUserByEmail(userRequest.getEmail());
+        System.out.println("Email received: '" + userRequest.getEmail() + "'");
+        System.out.println("Password received: '" + userRequest.getPassword() + "'");
+        if (user.getPassword().equals(userRequest.getPassword())){
+            return ResponseEntity.ok("Login Successful");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+        }
     }
 }

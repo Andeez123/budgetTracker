@@ -22,6 +22,10 @@ public class UserService {
         return userRepo.findById(userID).orElseThrow(() -> new UserNotFoundException());
     }
 
+    public User getUserByEmail(String email){
+        return userRepo.findByEmailAddress(email).orElseThrow(() -> new UserNotFoundException());
+    }
+
     public User saveUser(User user) {
         return userRepo.save(user);
     }

@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import "../Styles/Login.css"
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
     const [fName, setFname] = useState('')
@@ -11,6 +12,7 @@ const Register = () => {
     const [email, setEmail] = useState('')
     const [pwd, setPwd] = useState('')
     const api = "http://localhost:8080/api/v1/users"
+    const navigate = useNavigate()
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -23,7 +25,8 @@ const Register = () => {
             password: pwd,
             accAmt: 0
         }).then(response => {
-
+            console.log("Success")
+            navigate("/")
         }).catch(error => {
             console.log("Error adding user")
         })
