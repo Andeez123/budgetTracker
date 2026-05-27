@@ -14,8 +14,10 @@ const Login = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         axios.post(api, {
-            email: email,
-            password: pwd
+            email,
+            password:pwd
+        }, {
+            withCredentials: true
         }).then(response => {
             console.log("Success")
         }).catch(error => {
