@@ -19,19 +19,19 @@ public class BudgetTrackerApplication {
 		SpringApplication.run(BudgetTrackerApplication.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner runApp(userRepo userRepo, TransactionRepo transactionRepo, CategoryRepo categoryRepo){
-		User u1 = new User("Andrew", "Chong", "0162238805", "andeeznutz003@gmail.com", "TestPassword",1000.0);
-//		Transaction t1 = new Transaction(Transaction.TransactionType.expense, 100);
-//		Transaction t2 = new Transaction(Transaction.TransactionType.income, 200);
-
-		Category foodCat = new Category("Food");
-		Category clothingCat = new Category("Clothing");
-		return args -> {
-			userRepo.save(u1);
-			categoryRepo.save(foodCat);
-			categoryRepo.save(clothingCat);
-		};
-	}
+//	@Bean
+//	public CommandLineRunner runApp(userRepo userRepo, TransactionRepo transactionRepo, CategoryRepo categoryRepo){
+//		User u1 = new User("Andrew", "Chong", "0162238805", "andeeznutz003@gmail.com", "TestPassword",1000.0);
+////		Transaction t1 = new Transaction(Transaction.TransactionType.expense, 100);
+////		Transaction t2 = new Transaction(Transaction.TransactionType.income, 200);
+//
+//		Category foodCat = new Category("Food");
+//		Category clothingCat = new Category("Clothing");
+//		return args -> {
+//			userRepo.save(u1);
+//			categoryRepo.save(foodCat);
+//			categoryRepo.save(clothingCat);
+//		};
+//	}
 
 }

@@ -28,8 +28,8 @@ public class TransactionService {
         return transactionRepo.findById(transactionID).orElseThrow(() -> new TransactionNotFoundException());
     }
 
-    public List<Transaction> getTransactionsByUserID(long userID){
-        return transactionRepo.findByUserID(userID);
+    public List<Transaction> getTransactionsByEmail(String email){
+        return transactionRepo.findByEmailAddress(email);
     }
 
     public Transaction saveTransaction(long userID, Transaction transaction) {

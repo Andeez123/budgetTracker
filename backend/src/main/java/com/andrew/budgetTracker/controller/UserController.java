@@ -1,5 +1,6 @@
 package com.andrew.budgetTracker.controller;
 
+import com.andrew.budgetTracker.Service.JwtService;
 import com.andrew.budgetTracker.Service.UserService;
 import com.andrew.budgetTracker.model.LoginDTO;
 import com.andrew.budgetTracker.model.Transaction;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -25,6 +27,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    JwtService jwtService;
 
     private final AuthenticationManager authManager;
     private final PasswordEncoder passwordEncoder;
@@ -70,22 +75,15 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginDTO userRequest){
-//        User user = userService.getUserByEmail(userRequest.getEmail());
-//        System.out.println("Email received: '" + userRequest.getEmail() + "'");
-//        System.out.println("Password received: '" + userRequest.getPassword() + "'");
-//        if (user.getPassword().equals(userRequest.getPassword())){
-//            return ResponseEntity.ok("Login Successful");
-//        } else {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
-//        }
-
+    public ResponseEntity<Map<String, String>> login(@RequestBody LoginDTO userRequest){
         Authentication auth = authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         userRequest.getEmail(),
                         userRequest.getPassword()
                 )
         );
-        return ResponseEntity.ok().build();
+
+        String token = jwtService.generateToken(auth.getName());
+        return ResponseEntity.ok(Map.of("token", token));
     }
 }

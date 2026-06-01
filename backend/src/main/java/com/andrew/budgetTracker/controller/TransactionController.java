@@ -2,9 +2,11 @@ package com.andrew.budgetTracker.controller;
 
 import com.andrew.budgetTracker.Service.TransactionService;
 import com.andrew.budgetTracker.model.Transaction;
+import com.andrew.budgetTracker.model.UserPrincipal;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -23,9 +25,10 @@ public class TransactionController {
         return transactionService.getTransactionById(userID);
     }
 
-    @GetMapping("/user/{id}")
-    public List<Transaction> getTransactionByUserID(@PathVariable("id") long userID){
-        return transactionService.getTransactionsByUserID(userID);
+    @GetMapping("/user/my-transactions")
+    public List<Transaction> getTransactionsUser(@AuthenticationPrincipal UserPrincipal userPrincipal){
+        String email = userPrincipal.getUsername();
+        return transactionService.getTransactionsByEmail(email);
     }
 
     @PostMapping("/user/{id}")

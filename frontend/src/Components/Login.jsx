@@ -2,7 +2,7 @@ import { Container } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import "../Styles/Login.css"
-import { Link} from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 
@@ -10,6 +10,7 @@ const Login = () => {
     const [email, setEmail] = useState('')
     const [pwd, setPwd] = useState('')
     const api = "http://localhost:8080/api/v1/users/login"
+    const navigate = useNavigate()
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -20,6 +21,9 @@ const Login = () => {
             withCredentials: true
         }).then(response => {
             console.log("Success")
+            const { token } = response.data
+            localStorage.setItem('jwt', token)
+            navigate('/home')
         }).catch(error => {
             console.log("Error logging in")
         })

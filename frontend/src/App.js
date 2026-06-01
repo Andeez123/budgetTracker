@@ -6,6 +6,7 @@ import "bootstrap/dist/js/bootstrap.bundle"
 import { Route, Router, Routes } from 'react-router-dom';
 import Login from './Components/Login';
 import Register from './Components/Register';
+import Transactions from './Components/Transactions';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Login></Login>}></Route>
           <Route path='/register' element={<Register></Register>}></Route>
+          <Route path='/home' element={<Transactions></Transactions>}></Route>
         </Routes>
       </header>
     </div>
