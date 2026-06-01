@@ -32,9 +32,9 @@ public class TransactionService {
         return transactionRepo.findByEmailAddress(email);
     }
 
-    public Transaction saveTransaction(long userID, Transaction transaction) {
+    public Transaction saveTransaction(String email, Transaction transaction) {
         String cat = transaction.getCategoryName();
-        User currUser = userRepo.findById(userID).orElseThrow(() -> new UserNotFoundException());
+        User currUser = userRepo.findByEmailAddress(email).orElseThrow(() -> new UserNotFoundException());
         Category category = categoryService.createCategoryIfNotExist(cat);
 
         transaction.setCategory(category);

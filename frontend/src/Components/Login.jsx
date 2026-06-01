@@ -23,6 +23,7 @@ const Login = () => {
             console.log("Success")
             const { token } = response.data
             localStorage.setItem('jwt', token)
+            console.log(token)
             navigate('/home')
         }).catch(error => {
             console.log("Error logging in")

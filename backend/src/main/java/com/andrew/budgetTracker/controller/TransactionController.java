@@ -19,11 +19,11 @@ public class TransactionController {
     @Autowired
     TransactionService transactionService;
 
-    @Operation(summary = "Return transaction by ID")
-    @GetMapping("{id}")
-    public Transaction getTransactionById(@PathVariable("id") long userID){
-        return transactionService.getTransactionById(userID);
-    }
+//    @Operation(summary = "Return transaction by ID")
+//    @GetMapping("{id}")
+//    public Transaction getTransactionById(@PathVariable("id") long userID){
+//        return transactionService.getTransactionById(userID);
+//    }
 
     @GetMapping("/user/my-transactions")
     public List<Transaction> getTransactionsUser(@AuthenticationPrincipal UserPrincipal userPrincipal){
@@ -31,9 +31,10 @@ public class TransactionController {
         return transactionService.getTransactionsByEmail(email);
     }
 
-    @PostMapping("/user/{id}")
-    public ResponseEntity<Transaction> addTransaction(@PathVariable("id") long userID, @RequestBody Transaction transaction){
-        Transaction savedTransaction = transactionService.saveTransaction(userID, transaction);
+    @PostMapping("/user/add-transactions")
+    public ResponseEntity<Transaction> addTransaction(@AuthenticationPrincipal UserPrincipal userPrincipal, @RequestBody Transaction transaction){
+        String email = userPrincipal.getUsername();
+        Transaction savedTransaction = transactionService.saveTransaction(email, transaction);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("").buildAndExpand(savedTransaction.getTransactionID()).toUri();
         return ResponseEntity.created(location).body(savedTransaction);
     }
