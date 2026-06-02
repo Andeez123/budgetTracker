@@ -4,5 +4,11 @@
 }
 
 .register {
-    padding: 80px;
+    padding: 10px;
+}
+
+.btn-custom {
+    font-size: 15px;
+    font-weight: 200;
+    border-radius: 5px;
 }

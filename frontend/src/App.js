@@ -7,10 +7,15 @@ import { Route, Router, Routes } from 'react-router-dom';
 import Login from './Components/Login';
 import Register from './Components/Register';
 import Transactions from './Components/Transactions';
+import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';     
+import "primereact/resources/themes/lara-dark-blue/theme.css"; // theme - swap for others
+import "primereact/resources/primereact.min.css";               // core styles
+import "primeicons/primeicons.css"; 
 
 function App() {
   return (
-    <div className="App">
+    <PrimeReactProvider>
+      <div className="App">
       <header className="App-header">
         <Header></Header>
         
@@ -21,6 +26,7 @@ function App() {
         </Routes>
       </header>
     </div>
+    </PrimeReactProvider>
   );
 }
 

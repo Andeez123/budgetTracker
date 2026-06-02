@@ -1,22 +1,25 @@
 import { Component, useState } from "react";
 import { Container } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import "../Styles/Login.css"
+import "../Styles/Register.css"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Button} from 'primereact/button';
+
 
 const Register = () => {
     const [fName, setFname] = useState('')
     const [Lname, setLname] = useState('')
     const [email, setEmail] = useState('')
     const [pwd, setPwd] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
     const api = "http://localhost:8080/api/v1/users"
     const navigate = useNavigate()
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        alert("Sending form data")
+        setIsLoading(true)
         axios.post(api, {
             firstName: fName,
             lastName: Lname,
@@ -60,9 +63,8 @@ const Register = () => {
                             onChange={event => setPwd(event.target.value)}/>
                     </Form.Group>
                     
-                    <Button variant="primary" type="submit">
-                        Submit
-                    </Button>
+                    <Button  className="btn-custom" label="Submit" icon="pi pi-check" loading={isLoading} />
+
                 </Form>
             </Container>
         </div>

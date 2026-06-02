@@ -2,3 +2,9 @@
     max-width: 500px;
     padding: 50px;
 }
+
+.btn-custom {
+    font-size: 15px;
+    font-weight: 200;
+    border-radius: 5px;
+}
