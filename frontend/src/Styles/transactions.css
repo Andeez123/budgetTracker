@@ -1,0 +1,19 @@
+.button-holder{
+    padding-bottom: 20px;
+}
+
+.button-class{
+    background-color: white;
+    border-radius: 15px;
+    height: 40px;
+}
+
+.popup-footer{
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+.transaction-dialog .form-label{
+    color: var(--text-color);
+}
