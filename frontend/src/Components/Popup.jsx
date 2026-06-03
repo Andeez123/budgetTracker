@@ -2,13 +2,15 @@ import { Dialog } from 'primereact/dialog';
 import Form from 'react-bootstrap/Form'
 import { useState } from "react";
 import axios from "axios"
+import { Dropdown } from 'primereact/dropdown';
+import "../Styles/popup.css"
 
 const Popup = (props) => {
     const token = localStorage.getItem('jwt')
     const ADD_TRANSACTION_API = "http://localhost:8080/api/v1/transactions/user/add-transactions"
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [form, setForm] = useState({
-        type: "income",
+        type: "",
         amount: "",
         categoryName: "",
     })
@@ -29,7 +31,7 @@ const Popup = (props) => {
         }, { headers: {'Authorization': `Bearer ${token}`}})
             .then(() => {
                 props.closePopUp()
-                
+
             })
             .catch(error => {
                 console.log("Failed to add transaction", error)
@@ -48,15 +50,13 @@ const Popup = (props) => {
         >
             <Form id="add-transaction-form" onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="transactionType">
-                    <Form.Label>Type</Form.Label>
-                    <Form.Select
+                    <Dropdown
+                        onChange={e => setForm({ ...form, type: e.value })}
+                        options={TYPE_OPTIONS}
+                        optionLabel='label' placeholder='Select a type'
                         value={form.type}
-                        onChange={e => setForm({ ...form, type: e.target.value })}
-                    >
-                        {TYPE_OPTIONS.map(opt => (
-                            <option key={opt.value} value={opt.value}>{opt.label}</option>
-                        ))}
-                    </Form.Select>
+                        className='dropdown-style'
+                    ></Dropdown>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="transactionAmount">
