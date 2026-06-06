@@ -31,7 +31,8 @@ const Popup = (props) => {
         }, { headers: {'Authorization': `Bearer ${token}`}})
             .then(() => {
                 props.closePopUp()
-
+                props.onTransactionAdded()
+                props.renderUser()
             })
             .catch(error => {
                 console.log("Failed to add transaction", error)

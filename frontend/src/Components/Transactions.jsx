@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Table from 'react-bootstrap/Table'
-import Form from 'react-bootstrap/Form'
 import { format } from "date-fns"
 import { Button } from 'primereact/button';
 
 import "../Styles/transactions.css"
 import Popup from "./Popup";
+import UserData from "./UserData";
 
 const TRANSACTIONS_API = "http://localhost:8080/api/v1/transactions/user/my-transactions"
 
@@ -16,42 +16,46 @@ const Transactions = (props) => {
     const [tryLoad, setTryLoad] = useState(false)
     const [showPopUp, setShowPopUp] = useState(false)
     const [isSubmitting, setIsSubmitting] = useState(false)
-    
-    const [form, setForm] = useState({
-        type: "income",
-        amount: "",
-        categoryName: "",
-    })
+    const [userAmount, setAmount] = useState()
 
-    useEffect(() => {
+    const fetchTransactions = () => {
         const token = localStorage.getItem('jwt')
-        axios.get(TRANSACTIONS_API, {
+        return axios.get(TRANSACTIONS_API, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         }).then(response => {
-            console.log("api call success")
             setTransactions(response.data)
             setTryLoad(true)
-            if (response.data.length > 0) {
-                setGotData(true)
-            }
+            setGotData(response.data.length > 0)
         }).catch(error => {
             console.log("error")
             setGotData(false)
             setTryLoad(true)
         })
+    }
+
+    const fetchUser = () => {
+        const user_API = "http://localhost:8080/api/v1/users/my-account"
+        const token = localStorage.getItem('jwt')
+        return axios.get(user_API, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(response => {
+            setAmount(response.data.accAmt)
+        })
+    }
+
+    useEffect(() => {
+        fetchTransactions()
+        fetchUser()
     }, [])
 
     
 
-    const resetForm = () => {
-        setForm({ type: "income", amount: "", categoryName: "" })
-    }
-
     const closePopUp = () => {
         setShowPopUp(false)
-        resetForm()
     }
 
     const popUpFooter = (
@@ -63,6 +67,8 @@ const Transactions = (props) => {
 
     return (
         <div>
+            <UserData userAmount={userAmount}></UserData>
+
             <div className="button-holder">
                 <Button className="button-class"
                     onClick={() => setShowPopUp(true)}
@@ -72,6 +78,8 @@ const Transactions = (props) => {
             <Popup showPopUp={showPopUp}
                 closePopUp={closePopUp}
                 popUpFooter={popUpFooter}
+                onTransactionAdded={fetchTransactions}
+                renderUser={fetchUser}
             ></Popup>
 
             {!gotData && tryLoad &&

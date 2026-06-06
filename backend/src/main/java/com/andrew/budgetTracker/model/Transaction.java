@@ -49,8 +49,20 @@ public class Transaction {
         return this.transactionType;
     }
 
+    public void setType(TransactionType type) {
+        this.transactionType = type;
+    }
+
     public double getAmount(){
         return this.amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public void setUser(User user){

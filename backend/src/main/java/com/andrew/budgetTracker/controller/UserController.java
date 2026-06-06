@@ -5,6 +5,7 @@ import com.andrew.budgetTracker.Service.UserService;
 import com.andrew.budgetTracker.model.LoginDTO;
 import com.andrew.budgetTracker.model.Transaction;
 import com.andrew.budgetTracker.model.User;
+import com.andrew.budgetTracker.model.UserPrincipal;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -46,9 +48,9 @@ public class UserController {
     }
 
     @Operation(summary = "Gets user by specified ID.")
-    @GetMapping("{id}")
-    public User getUser(@PathVariable("id") long userID){
-        return userService.getUserById(userID);
+    @GetMapping("my-account")
+    public User getUser(@AuthenticationPrincipal UserPrincipal userPrincipal){
+        return userService.getUserByEmail(userPrincipal.getUsername());
     }
 
     @Operation(summary = "Creates a user.")
