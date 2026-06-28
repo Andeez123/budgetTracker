@@ -7,6 +7,7 @@ import { Button } from 'primereact/button';
 import "../Styles/transactions.css"
 import Popup from "./Popup";
 import UserData from "./UserData";
+import { FileForm } from "./FileForm";
 
 const TRANSACTIONS_API = "http://localhost:8080/api/v1/transactions/user/my-transactions"
 
@@ -73,6 +74,10 @@ const Transactions = (props) => {
                 <Button className="button-class"
                     onClick={() => setShowPopUp(true)}
                     label="Add transaction" text raised />
+            </div>
+
+            <div>
+                <FileForm></FileForm>
             </div>
 
             <Popup showPopUp={showPopUp}
