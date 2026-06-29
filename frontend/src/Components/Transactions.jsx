@@ -77,7 +77,9 @@ const Transactions = (props) => {
             </div>
 
             <div>
-                <FileForm></FileForm>
+                <FileForm
+                    onTransactionAdded={fetchTransactions}
+                    renderUser={fetchUser}></FileForm>
             </div>
 
             <Popup showPopUp={showPopUp}

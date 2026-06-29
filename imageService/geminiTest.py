@@ -19,5 +19,5 @@ response = client.models.generate_content(
         "Extract the transaction amount and category from the json file"
     ]
 )
-
+  
 print(response.text)

@@ -1,8 +1,9 @@
 import axios from "axios"
 import { useState } from "react"
 
-export const FileForm = () => {
+export const FileForm = (props) => {
     const [imageData, setImage] = useState(null)
+    const token = localStorage.getItem('jwt')
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -12,9 +13,11 @@ export const FileForm = () => {
 
         const user_API = "http://localhost:8081/uploadfile"
 
-        axios.post(user_API, formData)
+        axios.post(user_API, formData, { headers: { 'Authorization': `Bearer ${token}` } })
             .then(response => {
-            console.log("Success:", response.data)
+                console.log("Success:", response.data)
+                props.onTransactionAdded()
+                props.renderUser()
             }).catch(error => {
             console.log("Error:", error)
         })
